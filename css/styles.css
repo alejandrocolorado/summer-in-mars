@@ -48,8 +48,9 @@ a {
   border-color: #634d9d;
   border-width: 4px;
   text-align: center;
-  display: table-cell;
-  vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .main-container {
@@ -129,27 +130,35 @@ a {
   background-color: #e9e9e9;
 }
 
-.submit-form > input {
-  background-color: rgba(255, 255, 255, 0.545);
+input {
+  background-color: rgba(255, 255, 255, 0.8);
   margin: 0 0 1.2rem;
   border: none;
   border-bottom: 3px solid #c2c2c2;
   border-radius: 20%;
   box-shadow: none;
-  padding: 5% 8%;
+  padding: 5% 5%;
+  display: flex;
 }
 
-input[type="search"] {
-  color: #fff;
+input[type="text"] {
+  color: #000;
   font-family: "Raleway", "Sans-serif";
   font-weight: bold;
   font-size: 1.2em;
+  text-align: center;
+}
+
+input::placeholder {
+  font-family: "Raleway", "sans-serif";
+  font-size: 1rem;
 }
 
 .submit-button > span {
   font-size: 1.5em;
   font-family: "Orbitron", sans-serif;
   font-weight: bold;
+  color: rgb(0, 0, 0);
 }
 
 .mars-loading {
@@ -213,10 +222,11 @@ input[type="search"] {
 }
 
 .submit-button {
-  color: #fff;
+  color: rgb(59, 59, 59);
   transition: all 0.5s;
   position: relative;
 }
+
 .submit-button::before {
   content: "";
   position: absolute;
@@ -225,7 +235,7 @@ input[type="search"] {
   width: 100%;
   height: 100%;
   z-index: 1;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.3);
   transition: all 0.3s;
 }
 .submit-button:hover::before {
@@ -249,3 +259,13 @@ input[type="search"] {
   opacity: 1;
   transform: scale(1, 1);
 }
+
+.modal-content {
+    background-color: rgba(0, 0, 0, 0.8)
+}
+
+.modal-content h5, p, span {
+    color: #fff;
+}
+
+

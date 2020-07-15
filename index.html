@@ -2,7 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <style>@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Raleway:wght@200;300;400;700&display=swap');</style>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Raleway:wght@200;300;400;700&display=swap");
+    </style>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
@@ -13,7 +15,7 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <title>Summer in Mars</title>
   </head>
@@ -45,14 +47,22 @@
         <div class="form-wrapper">
           <form class="submit-form" autocomplete="off">
             <div class="autocomplete">
-            <input type="text" id="search-input" placeholder="Search by city here (just Spain for now)"/>
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Search by city here"
+              />
             </div>
             <div class="btn-wrapper">
-              <div class="btn submit-button">
+              <div
+                class="btn submit-button"
+                id="go-go-go"
+                data-toggle="modal"
+                data-target="#weatherModal"
+              >
                 <span> Go go go! </span>
               </div>
             </div>
-            
           </form>
         </div>
       </section>
@@ -61,7 +71,10 @@
           <img class="hvr-grow" src="images/mars.png" />
         </div>
         <div class="mars-loading">
-          <div class="lds-ripple"><div></div><div></div></div>
+          <div class="lds-ripple">
+            <div></div>
+            <div></div>
+          </div>
           <h3>Waiting for input</h3>
         </div>
       </section>
@@ -83,6 +96,5 @@
     ></script>
     <script type="text/javascript" src="scripts/filtered.js"></script>
     <script type="text/javascript" src="scripts/script.js"></script>
-    
   </body>
 </html>

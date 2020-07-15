@@ -1,9 +1,4 @@
-fetch(
-  "https://api.nasa.gov/insight_weather/?api_key=WOG02mniWdRHxuIZefsUy4aoU4ddi0lQgwQnLkDv&feedtype=json&ver=1.0"
-)
-  .then((response) => response.json())
-  .then((data) => console.log(data))
-  .catch((err) => console.log(err));
+//AUTOCOMPLETE FUNCTION
 
 let citiesArr = [];
 
@@ -11,51 +6,61 @@ cities.forEach((elem) => {
   citiesArr.push(elem.name);
 });
 
+let resultCity;
+
 function autocomplete(inp, arr) {
-  /*the autocomplete function takes two arguments,
-  the text field element and an array of possible autocompleted values:*/
   var currentFocus;
-  /*execute a function when someone writes in the text field:*/
+  /*funcion que se activa cuando el usuario escribe*/
   inp.addEventListener("input", function (e) {
     var a,
       b,
       i,
       val = this.value;
-    /*close any already open lists of autocompleted values*/
+    /*llama la funcion para cerrar cualquier lista existente*/
     closeAllLists();
     if (!val) {
       return false;
     }
     currentFocus = -1;
-    /*create a DIV element that will contain the items (values):*/
+
     a = document.createElement("DIV");
     a.setAttribute("id", this.id + "autocomplete-list");
     a.setAttribute("class", "autocomplete-items");
-    /*append the DIV element as a child of the autocomplete container:*/
+    /*anexa el div al contenedor del cuadro para autocompletar*/
     this.parentNode.appendChild(a);
-    /*for each item in the array...*/
+
     for (i = 0; i < arr.length; i++) {
-      /*check if the item starts with the same letters as the text field value:*/
+      /*Loop para revisar si las letras del input son iguales a las del arr*/
       if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-        /*create a DIV element for each matching element:*/
+        /*si encuentra un match crea un nuevo div*/
         b = document.createElement("DIV");
-        /*make the matching letters bold:*/
+        /*hace que las letras que coincidan se vuelvan negrita*/
         b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
         b.innerHTML += arr[i].substr(val.length);
-        /*insert a input field that will hold the current array item's value:*/
+        /*inserta un input field que mantiene el valor actual del item del arr*/
         b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-        /*execute a function when someone clicks on the item value (DIV element):*/
+        /*funcion de click para el div seleccionado por el usuario*/
         b.addEventListener("click", function (e) {
-          /*insert the value for the autocomplete text field:*/
+          /*inserta el valor del input de autocompletar:*/
+
           inp.value = this.getElementsByTagName("input")[0].value;
-          let coordObj = cities.find((elmt) => elmt.name === inp.value).coord;
-          callCoord(coordObj);
-          lastThreeDaysTime();
+          /*crea una variable global con el contenido del autocompletado*/
+          resultCity = inp.value;
+
           closeAllLists();
         });
         a.appendChild(b);
       }
     }
+  });
+
+  const goButton = document.getElementById("go-go-go");
+
+  goButton.addEventListener("click", function (e) {
+    let coordObj = cities.find((elmt) => elmt.name === inp.value).coord;
+
+    let current = Math.floor(Date.now() / 1000) - 24 * 60 * 60;
+    callWeather(coordObj, current, resultCity);
   });
 
   function addActive(x) {
@@ -92,25 +97,94 @@ function autocomplete(inp, arr) {
 
 autocomplete(document.getElementById("search-input"), citiesArr);
 
-let resultCityInput = document.getElementById("search-input");
-let resultCity = resultCityInput.innerText;
+//OPENWEATHER API CALL //NASA MARS WEATHER API CALL
 
-function callCoord(coordObj) {
-  fetch(
-    `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${coordObj.lat}&lon=${coordObj.lon}&units=metric&dt=1594425600&exclude=hourly&appid=1fc51affa51b3e164ee01d4b51ee0939`
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      let tempArr = data.hourly.map((o) => o.temp);
-      let tempMax = Math.max(...tempArr);
-      let tempMin = Math.min(...tempArr);
-      console.log(tempMax, tempMin);
-    })
-    .catch((err) => console.log(err));
+async function callWeather(coordObj, current, resultCity) {
+  const section = document.querySelector(".mars");
+
+  try {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${coordObj.lat}&lon=${coordObj.lon}&units=metric&dt=${current}&appid=1fc51affa51b3e164ee01d4b51ee0939`
+    );
+    const data = await response.json();
+
+    console.log(data);
+    let avgTemp = data.current.temp;
+    let tempArr = data.hourly.map((o) => o.temp);
+    let maxTemp = Math.max(...tempArr);
+    let minTemp = Math.min(...tempArr);
+    console.log(avgTemp, minTemp, maxTemp);
+
+    const responseM = await fetch(
+      "https://api.nasa.gov/insight_weather/?api_key=WOG02mniWdRHxuIZefsUy4aoU4ddi0lQgwQnLkDv&feedtype=json&ver=1.0"
+    );
+    const dataM = await responseM.json();
+    let currentSolar = dataM[Object.keys(dataM)[0]];
+    let avgTempM = currentSolar.AT.av;
+    let minTempM = currentSolar.AT.mn;
+    let maxTempM = currentSolar.AT.mx;
+    console.log(avgTempM, minTempM, maxTempM);
+
+    const marsTempDiv = document.createElement("article");
+    marsTempDiv.innerHTML = `
+          <div class="modal fade" id="weatherModal" tabindex="-1" role="dialog" aria-labelledby="weatherModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="weatherModalLabel">${resultCity}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div>
+                  <img src="http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png">
+                </div>
+                <span>Avg. temp</span> <p>${avgTemp}</p>
+                <span>Min. temp</span> <p>${minTemp}</p>
+                <span>Max. temp</span> <p>${maxTemp}</p>
+              </div>
+              <div class="modal-header">
+                <h5 class="modal-title" id="weatherModalLabel">Elysium Planitia</h5>
+              </div>
+              <div class="modal-body">
+                <div>
+                  <img src="http://openweathermap.org/img/wn/13d@2x.png">
+                </div>
+                <span>Avg. temp</span> <p>${avgTempM}</p>
+                <span>Min. temp</span> <p>${minTempM}</p>
+                <span>Max. temp</span> <p>${maxTempM}</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+          `;
+
+    section.appendChild(marsTempDiv);
+  } catch (err) {
+    console.log(err);
+  }
 }
 
-function lastThreeDaysTime() {
-  let pastThreeDays = Date.now() - 86400 * 2.9;
-  return pastThreeDays;
+{
+  /* <article class="earth-temp">
+<img src="http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png">
+<h3>${resultCity}</h3>
+<div class="earth-temps-coll">
+  <span>Avg. temp</span> <p>${avgTemp}</p>
+  <span>Min. temp</span> <p>${minTemp}</p>
+  <span>Max. temp</span> <p>${maxTemp}</p>
+</div>
+</article>
+
+<article class="mars-temp">
+<img src="http://openweathermap.org/img/wn/13d@2x.png">
+<h3>Elysium Planitia</h3>
+<div class="mars-temps-coll">
+  <span>Avg. temp</span> <p>${avgTempM}</p>
+  <span>Min. temp</span> <p>${minTempM}</p>
+  <span>Max. temp</span> <p>${maxTempM}</p>
+</div>
+</article> */
 }
