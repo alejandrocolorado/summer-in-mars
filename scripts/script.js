@@ -61,6 +61,8 @@ function autocomplete(inp, arr) {
 
     let current = Math.floor(Date.now() / 1000) - 24 * 60 * 60;
     callWeather(coordObj, current, resultCity);
+
+    inp.value = "";
   });
 
   function addActive(x) {
@@ -80,8 +82,7 @@ function autocomplete(inp, arr) {
     }
   }
   function closeAllLists(elmnt) {
-    /*close all autocomplete lists in the document,
-    except the one passed as an argument:*/
+
     var x = document.getElementsByClassName("autocomplete-items");
     for (var i = 0; i < x.length; i++) {
       if (elmnt != x[i] && elmnt != inp) {
@@ -89,7 +90,7 @@ function autocomplete(inp, arr) {
       }
     }
   }
-  /*execute a function when someone clicks in the document:*/
+
   document.addEventListener("click", function (e) {
     closeAllLists(e.target);
   });
@@ -131,29 +132,43 @@ async function callWeather(coordObj, current, resultCity) {
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="weatherModalLabel">${resultCity}</h5>
+                <h3 class="modal-title" id="weatherModalLabel">ESPAÑA</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
+              <div class="modal-body temps-modal-body">
                 <div>
                   <img src="http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png">
+                  <h5>${resultCity}</h5>
                 </div>
-                <span>Avg. temp</span> <p>${avgTemp}</p>
-                <span>Min. temp</span> <p>${minTemp}</p>
-                <span>Max. temp</span> <p>${maxTemp}</p>
+                <div class="avg-temp">
+                  <span>Avg. temp</span> <p>${avgTemp.toFixed(1)}</p>
+                </div>
+                <div class="min-max-temp">
+                  <p>Min. temp <strong>${minTemp.toFixed(1)} ºC</strong></p>
+                  <p>Max. temp <strong>${maxTemp.toFixed(1)} ºC</strong></p>
+                </div>
               </div>
               <div class="modal-header">
-                <h5 class="modal-title" id="weatherModalLabel">Elysium Planitia</h5>
+                <h3 class="modal-title" id="weatherModalLabel">MARS</h3>
               </div>
-              <div class="modal-body">
+              <div class="modal-body temps-modal-body">
                 <div>
                   <img src="http://openweathermap.org/img/wn/13d@2x.png">
+                  <h5> Elysium Planitia </h5>
                 </div>
-                <span>Avg. temp</span> <p>${avgTempM}</p>
-                <span>Min. temp</span> <p>${minTempM}</p>
-                <span>Max. temp</span> <p>${maxTempM}</p>
+                <div class="avg-temp">
+                  <span>Avg. temp</span> <p>${avgTempM.toFixed(1)}</p>
+                </div>
+                <div class="min-max-temp">
+                  <p>Min. temp <strong>${minTempM.toFixed(1)} ºC</strong></p>
+                  <p>Max. temp <strong>${maxTempM.toFixed(1)} ºC</strong></p>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save it!</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Try again!</button>
               </div>
 
             </div>
@@ -162,9 +177,20 @@ async function callWeather(coordObj, current, resultCity) {
           `;
 
     section.appendChild(marsTempDiv);
+
+    const closeButton = document.getElementsByClassName(".btn-secondary");
+
+    closeButton.addEventListener("click", function () {
+      const inputAutocomplete = document.getElementById("search-input");
+      inputAutocomplete.innerHTML = "";
+    })
   } catch (err) {
     console.log(err);
   }
 }
+
+
+
+
 
 

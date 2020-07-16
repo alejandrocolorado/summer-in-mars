@@ -15,9 +15,13 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <script
+      src="https://kit.fontawesome.com/373d04aa12.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/styles.css" />
-    
+
     <title>Summer in Mars</title>
   </head>
   <body>
@@ -26,9 +30,9 @@
         <img src="images/Asset 3.png" />
       </div>
       <nav class="main-nav" id="main-nav">
-        <a href="#">Log in</a>
+        <a href="#" data-toggle="modal" data-target="#loginModal">Log in</a>
         <a href="#signup">Sign up</a>
-        <a href="#">FAQ</a>
+        <a href="#faq-container">FAQ</a>
       </nav>
     </header>
     <main class="main">
@@ -42,7 +46,6 @@
           </p>
         </section>
         <section class="earth">
-          
           <div class="earth-photo">
             <img class="hvr-grow" src="images/earth.png" />
           </div>
@@ -56,7 +59,12 @@
                 />
               </div>
               <div class="btn-wrapper">
-                <div class="btn submit-button" id="go-go-go" data-toggle="modal" data-target="#weatherModal">
+                <div
+                  class="btn submit-button"
+                  id="go-go-go"
+                  data-toggle="modal"
+                  data-target="#weatherModal"
+                >
                   <span> Go go go! </span>
                 </div>
               </div>
@@ -86,13 +94,142 @@
             <input type="text" id="email" placeholder="Email" />
             <input type="password" id="password" placeholder="****" />
             <input type="password" id="repeat-password" placeholder="****" />
-  
-            <button type="submit" class="button" id="signup-button">Sign Up</button>
+
+            <button type="submit" class="button" id="signup-button">
+              Sign Up
+            </button>
           </form>
-          <div class="message-container">
-          </div>
+          <div class="message-container"></div>
         </div>
       </section>
+      <section class="faq-container" id="faq-container">
+
+      <H2>F.U.Q</H2>
+      <p>...or Freaking Useless Questions</p>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div
+              class="panel-group"
+              id="accordion"
+              role="tablist"
+              aria-multiselectable="true"
+            >
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                  <h4 class="panel-title">
+                    <a
+                      role="button"
+                      data-toggle="collapse"
+                      data-parent="#accordion"
+                      href="#collapseOne"
+                      aria-expanded="true"
+                      aria-controls="collapseOne"
+                    >
+                      WHY?
+                    </a>
+                  </h4>
+                </div>
+                <div
+                  id="collapseOne"
+                  class="panel-collapse collapse in"
+                  role="tabpanel"
+                  aria-labelledby="headingOne"
+                >
+                  <div class="panel-body">
+                    <p>
+                      Because how wouldn't want to know the temperature in their city stack up with the approchable and candid climate in Mars. Well probably no one to be honest. Simple answer, I wanted to work with a NASA API and this simple implementation made a little boy's dream a reality.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                  <h4 class="panel-title">
+                    <a
+                      class="collapsed"
+                      role="button"
+                      data-toggle="collapse"
+                      data-parent="#accordion"
+                      href="#collapseTwo"
+                      aria-expanded="false"
+                      aria-controls="collapseTwo"
+                    >
+                      HOW?
+                    </a>
+                  </h4>
+                </div>
+                <div
+                  id="collapseTwo"
+                  class="panel-collapse collapse"
+                  role="tabpanel"
+                  aria-labelledby="headingTwo"
+                >
+                  <div class="panel-body">
+                    <p>
+                      Well is wasn't rocket science, sadly. All it took was two APIs (thanks NASA and OpenWeather), a couple of days of frustration + a s**tload Redbull and six years of design experience to pull it off, easy peasy.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                  <h4 class="panel-title">
+                    <a
+                      class="collapsed"
+                      role="button"
+                      data-toggle="collapse"
+                      data-parent="#accordion"
+                      href="#collapseThree"
+                      aria-expanded="false"
+                      aria-controls="collapseThree"
+                    >
+                      WHO?
+                    </a>
+                  </h4>
+                </div>
+                <div
+                  id="collapseThree"
+                  class="panel-collapse collapse"
+                  role="tabpanel"
+                  aria-labelledby="headingThree"
+                >
+                  <div class="panel-body">
+                    <p>
+                    Le me. A graphic designer that wanted to reach the stars but instead crashed into a forever true <i>while</i> loop
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body login-modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <section class="login">
+              <h2>LOG IN</h2>
+              <div class="form-wrapper">
+                <form class="login-form" action="">
+                  <input type="email" id="email" placeholder="Email" />
+                  <input type="password" id="password" placeholder="****" />
+                  <button type="submit" class="button" id="login-button">Login</button>
+                </form>
+                <div class="message-container">
+                </div>
+              </div>
+            </section>
+
+        </div>
+      </div>
+    </div>
     </main>
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
