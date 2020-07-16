@@ -17,6 +17,7 @@
     />
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/styles.css" />
+    
     <title>Summer in Mars</title>
   </head>
   <body>
@@ -24,58 +25,72 @@
       <div>
         <img src="images/Asset 3.png" />
       </div>
-      <nav class="main-nav">
+      <nav class="main-nav" id="main-nav">
         <a href="#">Log in</a>
-        <a href="#">Sign in</a>
+        <a href="#signup">Sign up</a>
         <a href="#">FAQ</a>
       </nav>
     </header>
-
-    <main class="main-container">
-      <section class="header-section">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat
-          tempore unde iste corporis quos dolorum incidunt optio saepe
-          recusandae similique? Neque, amet deserunt? Accusantium excepturi
-          neque dolorem et libero exercitationem.
-        </p>
-      </section>
-      <section class="earth">
-        <div class="earth-photo">
-          <img class="hvr-grow" src="images/earth.png" />
-        </div>
-        <div class="form-wrapper">
-          <form class="submit-form" autocomplete="off">
-            <div class="autocomplete">
-              <input
-                type="text"
-                id="search-input"
-                placeholder="Search by city here"
-              />
-            </div>
-            <div class="btn-wrapper">
-              <div
-                class="btn submit-button"
-                id="go-go-go"
-                data-toggle="modal"
-                data-target="#weatherModal"
-              >
-                <span> Go go go! </span>
-              </div>
-            </div>
-          </form>
-        </div>
-      </section>
-      <section class="mars">
-        <div class="mars-photo">
-          <img class="hvr-grow" src="images/mars.png" />
-        </div>
-        <div class="mars-loading">
-          <div class="lds-ripple">
-            <div></div>
-            <div></div>
+    <main class="main">
+      <section class="main-container">
+        <section class="header-section">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat
+            tempore unde iste corporis quos dolorum incidunt optio saepe
+            recusandae similique? Neque, amet deserunt? Accusantium excepturi
+            neque dolorem et libero exercitationem.
+          </p>
+        </section>
+        <section class="earth">
+          
+          <div class="earth-photo">
+            <img class="hvr-grow" src="images/earth.png" />
           </div>
-          <h3>Waiting for input</h3>
+          <div class="form-wrapper">
+            <form class="submit-form" autocomplete="off">
+              <div class="autocomplete">
+                <input
+                  type="text"
+                  id="search-input"
+                  placeholder="Search by city here"
+                />
+              </div>
+              <div class="btn-wrapper">
+                <div class="btn submit-button" id="go-go-go" data-toggle="modal" data-target="#weatherModal">
+                  <span> Go go go! </span>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section class="mars">
+          <div class="mars-photo">
+            <img class="hvr-grow" src="images/mars.png" />
+          </div>
+          <div class="mars-loading">
+            <div class="lds-ripple">
+              <div></div>
+              <div></div>
+            </div>
+            <h3>Waiting for input</h3>
+          </div>
+        </section>
+      </section>
+
+      <section class="signup" id="signup">
+        <h2>Sign Up</h2>
+        <div class=".form-wrapper-signup">
+          <form class="signup-form" action="">
+            <input type="text" id="name" placeholder="Name" />
+            <input type="text" id="email" placeholder="Email" />
+            <input type="password" id="password" placeholder="****" />
+            <input type="password" id="repeat-password" placeholder="****" />
+  
+            <button type="submit" class="button" id="signup-button">Sign Up</button>
+          </form>
+          <div class="message-container">
+          </div>
         </div>
       </section>
     </main>
@@ -94,7 +109,12 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script type="text/javascript" src="scripts/filtered.js"></script>
     <script type="text/javascript" src="scripts/script.js"></script>
+    <script src="scripts/signup.js"></script>
+    <script src="scripts/user.js"></script>
+    <script src="scripts/database.js"></script>
+    <script src="scripts/validator.js"></script>
   </body>
 </html>

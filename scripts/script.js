@@ -167,24 +167,4 @@ async function callWeather(coordObj, current, resultCity) {
   }
 }
 
-{
-  /* <article class="earth-temp">
-<img src="http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png">
-<h3>${resultCity}</h3>
-<div class="earth-temps-coll">
-  <span>Avg. temp</span> <p>${avgTemp}</p>
-  <span>Min. temp</span> <p>${minTemp}</p>
-  <span>Max. temp</span> <p>${maxTemp}</p>
-</div>
-</article>
 
-<article class="mars-temp">
-<img src="http://openweathermap.org/img/wn/13d@2x.png">
-<h3>Elysium Planitia</h3>
-<div class="mars-temps-coll">
-  <span>Avg. temp</span> <p>${avgTempM}</p>
-  <span>Min. temp</span> <p>${minTempM}</p>
-  <span>Max. temp</span> <p>${maxTempM}</p>
-</div>
-</article> */
-}
