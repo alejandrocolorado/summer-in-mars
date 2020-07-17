@@ -8,5 +8,3 @@ class User {
     }
 
 }
-
-const newUser = createUser (name, email, password);

@@ -42,7 +42,6 @@ function autocomplete(inp, arr) {
         /*funcion de click para el div seleccionado por el usuario*/
         b.addEventListener("click", function (e) {
           /*inserta el valor del input de autocompletar:*/
-
           inp.value = this.getElementsByTagName("input")[0].value;
           /*crea una variable global con el contenido del autocompletado*/
           resultCity = inp.value;
@@ -59,10 +58,11 @@ function autocomplete(inp, arr) {
   goButton.addEventListener("click", function (e) {
     let coordObj = cities.find((elmt) => elmt.name === inp.value).coord;
 
+    console.log(coordObj)
+
     let current = Math.floor(Date.now() / 1000) - 24 * 60 * 60;
     callWeather(coordObj, current, resultCity);
-
-    inp.value = "";
+    
   });
 
   function addActive(x) {
@@ -132,7 +132,7 @@ async function callWeather(coordObj, current, resultCity) {
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h3 class="modal-title" id="weatherModalLabel">ESPAÑA</h3>
+                <h3 class="modal-title" id="weatherModalLabel">SPAIN</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -146,8 +146,8 @@ async function callWeather(coordObj, current, resultCity) {
                   <span>Avg. temp</span> <p>${avgTemp.toFixed(1)}</p>
                 </div>
                 <div class="min-max-temp">
-                  <p>Min. temp <strong>${minTemp.toFixed(1)} ºC</strong></p>
-                  <p>Max. temp <strong>${maxTemp.toFixed(1)} ºC</strong></p>
+                  <p>Min. temp <br><strong>${minTemp.toFixed(1)} ºC</strong></p>
+                  <p>Max. temp <br><strong>${maxTemp.toFixed(1)} ºC</strong></p>
                 </div>
               </div>
               <div class="modal-header">
@@ -162,12 +162,11 @@ async function callWeather(coordObj, current, resultCity) {
                   <span>Avg. temp</span> <p>${avgTempM.toFixed(1)}</p>
                 </div>
                 <div class="min-max-temp">
-                  <p>Min. temp <strong>${minTempM.toFixed(1)} ºC</strong></p>
-                  <p>Max. temp <strong>${maxTempM.toFixed(1)} ºC</strong></p>
+                  <p>Min. temp <br><strong>${minTempM.toFixed(1)} ºC</strong></p>
+                  <p>Max. temp <br><strong>${maxTempM.toFixed(1)} ºC</strong></p>
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save it!</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Try again!</button>
               </div>
 
@@ -178,16 +177,12 @@ async function callWeather(coordObj, current, resultCity) {
 
     section.appendChild(marsTempDiv);
 
-    const closeButton = document.getElementsByClassName(".btn-secondary");
-
-    closeButton.addEventListener("click", function () {
-      const inputAutocomplete = document.getElementById("search-input");
-      inputAutocomplete.innerHTML = "";
-    })
   } catch (err) {
     console.log(err);
   }
 }
+
+
 
 
 
