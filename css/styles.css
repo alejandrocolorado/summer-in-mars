@@ -691,6 +691,7 @@ p {
 
   .faq-container {
     height: 100vh;
+    border: none;
   }
 
   .faq-container > p {
@@ -749,4 +750,25 @@ padding: 0 3rem;
 
 #login-button {
   height: 70px; 
+}
 
+.avg-temp {
+
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+.temps-modal-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.avg-temp > p{
+  font-size: 2.5rem;
+}
+}
+}

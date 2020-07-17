@@ -58,11 +58,10 @@ function autocomplete(inp, arr) {
   goButton.addEventListener("click", function (e) {
     let coordObj = cities.find((elmt) => elmt.name === inp.value).coord;
 
-    console.log(coordObj)
+    console.log(coordObj);
 
     let current = Math.floor(Date.now() / 1000) - 24 * 60 * 60;
     callWeather(coordObj, current, resultCity);
-    
   });
 
   function addActive(x) {
@@ -82,7 +81,6 @@ function autocomplete(inp, arr) {
     }
   }
   function closeAllLists(elmnt) {
-
     var x = document.getElementsByClassName("autocomplete-items");
     for (var i = 0; i < x.length; i++) {
       if (elmnt != x[i] && elmnt != inp) {
@@ -139,7 +137,9 @@ async function callWeather(coordObj, current, resultCity) {
               </div>
               <div class="modal-body temps-modal-body">
                 <div>
-                  <img src="http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png">
+                  <img src="http://openweathermap.org/img/wn/${
+                    data.current.weather[0].icon
+                  }@2x.png">
                   <h5>${resultCity}</h5>
                 </div>
                 <div class="avg-temp">
@@ -162,8 +162,12 @@ async function callWeather(coordObj, current, resultCity) {
                   <span>Avg. temp</span> <p>${avgTempM.toFixed(1)}</p>
                 </div>
                 <div class="min-max-temp">
-                  <p>Min. temp <br><strong>${minTempM.toFixed(1)} ºC</strong></p>
-                  <p>Max. temp <br><strong>${maxTempM.toFixed(1)} ºC</strong></p>
+                  <p>Min. temp <br><strong>${minTempM.toFixed(
+                    1
+                  )} ºC</strong></p>
+                  <p>Max. temp <br><strong>${maxTempM.toFixed(
+                    1
+                  )} ºC</strong></p>
                 </div>
               </div>
               <div class="modal-footer">
@@ -176,16 +180,7 @@ async function callWeather(coordObj, current, resultCity) {
           `;
 
     section.appendChild(marsTempDiv);
-
   } catch (err) {
     console.log(err);
   }
 }
-
-
-
-
-
-
-
-
