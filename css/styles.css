@@ -629,9 +629,11 @@ p {
   .body {
     display: flex;
     flex-direction: row;
+    width: 100vh;
     
   }
   .main{
+    width: 70%;
     display: flex;
     flex-wrap: nowrap;
     overflow-y: hidden;
