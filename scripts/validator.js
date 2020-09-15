@@ -14,83 +14,69 @@ class Validator {
     };
   }
 
-      //validar nombre email
+  validateValidEmail = (email) => {
+    if (this.emailIsValid(email)) {
+      delete this.errors.invalidEmailError;
+    } else {
+      this.errors.invalidEmailError = this.invalidEmailError;
+    }
+  };
 
-      validateValidEmail = (email) => {
-        //si el email es valido, quita mensaje de error 
-        if (this.emailIsValid(email)) {
-            delete this.errors.invalidEmailError;
-          }
-          else {
-            // si el email no es valido, poner el mensaje que se mostrara
-            this.errors.invalidEmailError = this.invalidEmailError;
-          }
+  emailIsValid = (email) => {
+    const emailRegEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+
+    const isValid = emailRegEx.test(email);
+
+    return isValid;
+  };
+
+  validateUniqueEmail = (newEmail) => {
+    const usersDb = db.getAllUsers();
+
+    let emailUnique = true;
+
+    if (usersDb.length > 0) {
+      usersDb.forEach((userObj) => {
+        if (userObj.email === newEmail) {
+          emailUnique = false;
         }
+      });
 
-      emailIsValid = (email) =>{
-  
-      const emailRegEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
-      
-      // test, comprueba el email y devuelve si es verdaro o falso
-      const isValid = emailRegEx.test(email);
-      
-      return isValid;      
+      if (emailUnique) {
+        delete this.errors.emailExistsError;
+      } else {
+        this.errors.emailExistsError = this.emailExistsError;
       }
+    }
+  };
 
-      //valida si el email es unico
+  validatePassword = (password) => {
+    if (password.length > 5) {
+      delete this.errors.passwordError;
+    } else {
+      this.errors.passwordError = this.passwordError;
+    }
+  };
 
-      validateUniqueEmail = (newEmail) => {
-          const usersDb = db.getAllUsers();
+  validatePasswordRepeat = (password, passwordRepeat) => {
+    if (password === passwordRepeat) {
+      delete this.errors.repeatPasswordError;
+    } else {
+      this.errors.repeatPasswordError = this.repeatPasswordError;
+    }
+  };
 
-          let emailUnique = true;
+  getErrors = () => {
+    return this.errors;
+  };
 
-          if (usersDb.length > 0) {
-            usersDb.forEach((userObj) => {
-                if (userObj.email === newEmail){
-                    emailUnique = false;
-                }
-            })
-
-            if (emailUnique) {
-                delete this.errors.emailExistsError
-            } else {
-                this.errors.emailExistsError = this.emailExistsError
-            }
-          }
-      }
-
-      validatePassword = (password) => {
-          if (password.length > 5) {
-              delete this.errors.passwordError;
-          } else {
-              this.errors.passwordError = this.passwordError;
-          }
-      }
-  
-      //valida que password no se repite
-
-      validatePasswordRepeat = (password, passwordRepeat) => {
-          if (password === passwordRepeat) {
-              delete this.errors.repeatPasswordError;
-          } else {
-              this.errors.repeatPasswordError = this.repeatPasswordError
-          }
-      }
-
-      //Obtiene el objeto con los errors para mostrarlos en html
-
-      getErrors = () => {
-          return this.errors;
-        
-      }
-
-      resetValidator = () => {
-          this.errors = {
-            invalidEmailError: this.invalidEmailError,
-            passwordError: this.passwordError,
-            repeatPasswordError: this.repeatPasswordError,
-          };
-      }
+  resetValidator = () => {
+    this.errors = {
+      invalidEmailError: this.invalidEmailError,
+      passwordError: this.passwordError,
+      repeatPasswordError: this.repeatPasswordError,
+    };
+  };
 }
 
 const validator = new Validator();
